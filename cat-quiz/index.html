@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你是哪種貓咪？心理測驗 | What Cat Are You?</title>
+<meta name="description" content="透過 10 道趣味情境題，探索你的內在貓咪性格！你是穩重的英國短毛貓，還是冒險的阿比西尼亞貓？立即測驗！">
+<meta property="og:title" content="你是哪種貓咪？心理測驗">
+<meta property="og:description" content="透過 10 道趣味情境題，探索你的內在貓咪性格！">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/orange_tabby.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5SL4XJ6V');</script>
+<!-- End Google Tag Manager -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "name": "你是哪種貓咪？心理測驗",
+  "description": "透過 10 道趣味情境題，探索你的內在貓咪性格",
+  "educationalLevel": "beginner",
+  "numberOfQuestions": 10
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   DESIGN SYSTEM — Cat Quiz Theme
+   ============================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg-deep:#1A1625;
+  --bg-mid:#2D1B4E;
+  --bg-glow:#3D2466;
+  --primary:#F4A261;
+  --primary-light:#FFD4A3;
+  --accent:#E76F51;
+  --accent-soft:#FFDDD2;
+  --text-main:#F8F0E3;
+  --text-sub:#B8A9C9;
+  --text-dim:#7A6B8A;
+  --card-bg:rgba(255,255,255,0.06);
+  --card-border:rgba(255,255,255,0.1);
+  --card-hover:rgba(255,255,255,0.12);
+  --success:#6FCF97;
+  --shadow-glow:0 0 60px rgba(244,162,97,0.15);
+  --radius:16px;
+  --radius-lg:24px;
+  --radius-pill:999px;
+  --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-zh:'Noto Sans TC',sans-serif;
+  --font-num:'Outfit',sans-serif;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-zh);
+  background:var(--bg-deep);
+  color:var(--text-main);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Animated background */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(45,27,78,0.8) 0%,transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%,rgba(231,111,81,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%,rgba(244,162,97,0.08) 0%,transparent 50%);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Floating particles */
+.particles{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.particle{
+  position:absolute;
+  width:4px;height:4px;
+  background:var(--primary);
+  border-radius:50%;
+  opacity:0;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  20%{opacity:0.6}
+  80%{opacity:0.3}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.app{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+
+.container{
+  width:100%;max-width:560px;
+  position:relative;
+}
+
+/* ============================================
+   LANGUAGE TOGGLE
+   ============================================ */
+.lang-toggle{
+  position:fixed;top:20px;right:20px;z-index:100;
+  display:flex;gap:4px;
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-pill);
+  padding:4px;
+}
+.lang-btn{
+  border:none;background:transparent;
+  color:var(--text-sub);
+  font-family:var(--font-zh);
+  font-size:13px;font-weight:500;
+  padding:6px 14px;
+  border-radius:var(--radius-pill);
+  cursor:pointer;
+  transition:var(--transition);
+}
+.lang-btn.active{
+  background:var(--primary);
+  color:var(--bg-deep);
+  font-weight:700;
+}
+.lang-btn:hover:not(.active){color:var(--text-main)}
+
+/* ============================================
+   PAGES (Sections)
+   ============================================ */
+.page{
+  display:none;
+  animation:pageIn 0.6s ease-out forwards;
+}
+.page.active{display:block}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ============================================
+   LANDING PAGE
+   ============================================ */
+.landing{text-align:center}
+
+.landing-icon{
+  font-size:80px;
+  margin-bottom:8px;
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.landing h1{
+  font-size:clamp(28px,6vw,42px);
+  font-weight:900;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1.3;
+  margin-bottom:12px;
+}
+
+.landing-subtitle{
+  font-size:clamp(15px,3.5vw,18px);
+  color:var(--text-sub);
+  margin-bottom:36px;
+  line-height:1.7;
+}
+
+.landing-card{
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-lg);
+  padding:32px 24px;
+  margin-bottom:32px;
+}
+
+.cat-preview{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.cat-preview-item{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+
+.cat-preview-item img{
+  width:64px;height:64px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--card-border);
+  transition:var(--transition);
+}
+
+.cat-preview-item span{
+  font-size:11px;
+  color:var(--text-dim);
+  font-weight:500;
+}
+
+.landing-info{
+  font-size:14px;
+  color:var(--text-dim);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+
+.landing-info svg{width:16px;height:16px;stroke:var(--text-dim)}
+
+.btn-start{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:var(--bg-deep);
+  font-family:var(--font-zh);
+  font-size:18px;font-weight:700;
+  padding:16px 48px;
+  border:none;
+  border-radius:var(--radius-pill);
+  cursor:pointer;
+  transition:var(--transition);
+  box-shadow:0 4px 24px rgba(244,162,97,0.3);
+  position:relative;
+  overflow:hidden;
+}
+.btn-start::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%);
+  transform:translateX(-100%);
+  transition:0.6s;
+}
+.btn-start:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(244,162,97,0.45);
+}
+.btn-start:hover::before{transform:translateX(100%)}
+.btn-start:active{transform:translateY(0)}
+
+.btn-start svg{width:20px;height:20px;fill:var(--bg-deep)}
+
+/* ============================================
+   QUIZ PAGE
+   ============================================ */
+.quiz-header{margin-bottom:24px}
+
+.progress-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.progress-label{
+  font-size:14px;font-weight:600;color:var(--text-sub);
+  font-family:var(--font-num);
+}
+
+.progress-bar{
+  width:100%;height:6px;
+  background:rgba(255,255,255,0.08);
+  border-radius:var(--radius-pill);
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  border-radius:var(--radius-pill);
+  transition:width 0.5s cubic-bezier(0.4,0,0.2,1);
+  position:relative;
+}
+.progress-fill::after{
+  content:'';
+  position:absolute;right:0;top:0;
+  width:20px;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));
+  border-radius:var(--radius-pill);
+}
+
+.question-card{
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-lg);
+  padding:28px 24px;
+  animation:cardIn 0.4s ease-out;
+}
+
+@keyframes cardIn{
+  from{opacity:0;transform:translateX(40px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+.question-number{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:var(--bg-deep);
+  font-family:var(--font-num);
+  font-size:16px;font-weight:700;
+  border-radius:50%;
+  margin-bottom:16px;
+}
+
+.question-text{
+  font-size:clamp(17px,4vw,20px);
+  font-weight:700;
+  line-height:1.6;
+  margin-bottom:24px;
+  color:var(--text-main);
+}
+
+.options{display:flex;flex-direction:column;gap:12px}
+
+.option-btn{
+  display:flex;align-items:center;gap:14px;
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  cursor:pointer;
+  transition:var(--transition);
+  text-align:left;
+  font-family:var(--font-zh);
+  font-size:15px;
+  color:var(--text-main);
+  line-height:1.5;
+  position:relative;
+  overflow:hidden;
+}
+
+.option-btn::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(244,162,97,0.15),rgba(231,111,81,0.1));
+  opacity:0;
+  transition:var(--transition);
+}
+
+.option-btn:hover{
+  border-color:var(--primary);
+  background:rgba(244,162,97,0.08);
+  transform:translateX(4px);
+}
+.option-btn:hover::before{opacity:1}
+
+.option-btn.selected{
+  border-color:var(--primary);
+  background:rgba(244,162,97,0.12);
+  box-shadow:0 0 20px rgba(244,162,97,0.15);
+}
+
+.option-letter{
+  display:flex;align-items:center;justify-content:center;
+  min-width:32px;height:32px;
+  background:rgba(255,255,255,0.08);
+  border-radius:50%;
+  font-family:var(--font-num);
+  font-size:14px;font-weight:600;
+  color:var(--text-sub);
+  transition:var(--transition);
+  position:relative;z-index:1;
+}
+.option-btn:hover .option-letter,
+.option-btn.selected .option-letter{
+  background:var(--primary);
+  color:var(--bg-deep);
+}
+
+.option-text{position:relative;z-index:1}
+
+/* Nav buttons */
+.quiz-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:20px;
+}
+
+.btn-back{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;
+  border:1px solid var(--card-border);
+  color:var(--text-sub);
+  font-family:var(--font-zh);
+  font-size:14px;font-weight:500;
+  padding:10px 20px;
+  border-radius:var(--radius-pill);
+  cursor:pointer;
+  transition:var(--transition);
+}
+.btn-back:hover{color:var(--text-main);border-color:var(--text-sub)}
+.btn-back svg{width:16px;height:16px;stroke:currentColor}
+.btn-back.hidden{visibility:hidden}
+
+/* ============================================
+   RESULT PAGE
+   ============================================ */
+.result{text-align:center}
+
+.result-card{
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius-lg);
+  padding:36px 24px;
+  margin-bottom:24px;
+  animation:resultIn 0.8s ease-out;
+}
+
+@keyframes resultIn{
+  from{opacity:0;transform:scale(0.9) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+.result-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:var(--bg-deep);
+  font-size:13px;font-weight:700;
+  padding:6px 18px;
+  border-radius:var(--radius-pill);
+  margin-bottom:20px;
+  letter-spacing:0.5px;
+}
+
+.result-image{
+  width:180px;height:180px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--primary);
+  margin:0 auto 20px;
+  display:block;
+  box-shadow:0 0 40px rgba(244,162,97,0.2);
+  animation:imgPop 0.6s 0.3s ease-out both;
+}
+
+@keyframes imgPop{
+  from{opacity:0;transform:scale(0.7)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.result-name{
+  font-size:clamp(24px,5vw,32px);
+  font-weight:900;
+  background:linear-gradient(135deg,var(--primary),var(--accent-soft));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:4px;
+}
+
+.result-subtitle{
+  font-size:15px;
+  color:var(--text-sub);
+  margin-bottom:20px;
+  font-weight:500;
+}
+
+.result-traits{
+  display:flex;flex-wrap:wrap;
+  justify-content:center;gap:8px;
+  margin-bottom:24px;
+}
+
+.trait-tag{
+  background:rgba(244,162,97,0.12);
+  color:var(--primary-light);
+  font-size:13px;font-weight:600;
+  padding:6px 16px;
+  border-radius:var(--radius-pill);
+  border:1px solid rgba(244,162,97,0.2);
+}
+
+.result-desc{
+  font-size:15px;
+  color:var(--text-sub);
+  line-height:1.8;
+  text-align:left;
+  padding:0 8px;
+}
+
+/* Share */
+.share-section{
+  margin-bottom:24px;
+}
+
+.share-title{
+  font-size:14px;
+  color:var(--text-dim);
+  margin-bottom:12px;
+  font-weight:500;
+}
+
+.share-buttons{
+  display:flex;justify-content:center;gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn-share{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;
+  border-radius:var(--radius-pill);
+  border:1px solid var(--card-border);
+  background:var(--card-bg);
+  backdrop-filter:blur(10px);
+  color:var(--text-main);
+  font-family:var(--font-zh);
+  font-size:13px;font-weight:500;
+  cursor:pointer;
+  transition:var(--transition);
+}
+.btn-share:hover{
+  border-color:var(--primary);
+  background:rgba(244,162,97,0.1);
+  transform:translateY(-2px);
+}
+.btn-share svg{width:16px;height:16px}
+.btn-share.copied{
+  border-color:var(--success);
+  color:var(--success);
+}
+
+.btn-restart{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;
+  border:2px solid var(--primary);
+  color:var(--primary);
+  font-family:var(--font-zh);
+  font-size:16px;font-weight:700;
+  padding:14px 40px;
+  border-radius:var(--radius-pill);
+  cursor:pointer;
+  transition:var(--transition);
+}
+.btn-restart:hover{
+  background:var(--primary);
+  color:var(--bg-deep);
+  transform:translateY(-2px);
+  box-shadow:0 4px 20px rgba(244,162,97,0.3);
+}
+.btn-restart svg{width:18px;height:18px;stroke:currentColor}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer{
+  text-align:center;
+  padding:40px 20px 20px;
+  font-size:12px;
+  color:var(--text-dim);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media(max-width:480px){
+  .app{padding:16px 12px}
+  .question-card{padding:22px 16px}
+  .result-card{padding:28px 16px}
+  .option-btn{padding:14px 14px;font-size:14px}
+  .cat-preview{gap:12px}
+  .cat-preview-item img{width:52px;height:52px}
+  .btn-start{padding:14px 36px;font-size:16px}
+  .result-image{width:140px;height:140px}
+}
+
+@media(max-width:360px){
+  .cat-preview{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:30px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--success);
+  color:var(--bg-deep);
+  font-size:14px;font-weight:600;
+  padding:10px 24px;
+  border-radius:var(--radius-pill);
+  opacity:0;
+  transition:all 0.3s ease;
+  z-index:200;
+  pointer-events:none;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   AD MODAL
+   ============================================ */
+.ad-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.35s ease;
+}
+.ad-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.ad-card{
+  position:relative;
+  max-width:200px;
+  width:50%;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 40px rgba(244,162,97,0.1);
+  transform:scale(0.85) translateY(30px);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.35s ease;
+  opacity:0;
+  background:var(--bg-mid);
+}
+.ad-overlay.show .ad-card{
+  transform:scale(1) translateY(0);
+  opacity:1;
+}
+
+.ad-card a{
+  display:block;
+  line-height:0;
+}
+
+.ad-card img{
+  width:100%;
+  height:auto;
+  display:block;
+  cursor:pointer;
+  transition:transform 0.3s ease;
+}
+.ad-card img:hover{
+  transform:scale(1.02);
+}
+
+.ad-close{
+  position:absolute;
+  top:10px;right:10px;
+  width:34px;height:34px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:50%;
+  color:#fff;
+  font-size:18px;
+  line-height:34px;
+  text-align:center;
+  cursor:pointer;
+  transition:var(--transition);
+  z-index:10;
+  display:flex;align-items:center;justify-content:center;
+}
+.ad-close:hover{
+  background:rgba(231,111,81,0.8);
+  transform:rotate(90deg);
+}
+
+.ad-label{
+  position:absolute;
+  top:10px;left:10px;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(4px);
+  color:var(--text-sub);
+  font-size:11px;font-weight:600;
+  padding:4px 10px;
+  border-radius:var(--radius-pill);
+  letter-spacing:0.5px;
+  z-index:10;
+}
+
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SL4XJ6V"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Floating Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" data-lang="zh" aria-label="切換繁體中文">繁中</button>
+  <button class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Ad Modal -->
+<div class="ad-overlay" id="ad-overlay" role="dialog" aria-modal="true" aria-label="Advertisement">
+  <div class="ad-card" id="ad-card">
+    <span class="ad-label">AD</span>
+    <button class="ad-close" id="ad-close" aria-label="Close advertisement">&times;</button>
+    <a id="ad-link" href="#" target="_blank" rel="noopener noreferrer">
+      <img id="ad-image" src="" alt="Advertisement">
+    </a>
+  </div>
+</div>
+
+<div class="app">
+<div class="container">
+
+  <!-- ========== LANDING ========== -->
+  <section class="page landing active" id="page-landing">
+    <div class="landing-icon" aria-hidden="true">&#128049;</div>
+    <h1 id="landing-title">你是哪種貓咪？</h1>
+    <p class="landing-subtitle" id="landing-subtitle">
+      透過 10 道趣味情境題<br>探索隱藏在你內心深處的貓咪性格
+    </p>
+
+    <div class="landing-card">
+      <div class="cat-preview">
+        <div class="cat-preview-item">
+          <img src="images/british_shorthair.png" alt="British Shorthair" loading="lazy">
+          <span data-i18n="cat_a_short">英短</span>
+        </div>
+        <div class="cat-preview-item">
+          <img src="images/siamese.png" alt="Siamese" loading="lazy">
+          <span data-i18n="cat_b_short">暹羅</span>
+        </div>
+        <div class="cat-preview-item">
+          <img src="images/russian_blue.png" alt="Russian Blue" loading="lazy">
+          <span data-i18n="cat_c_short">俄藍</span>
+        </div>
+        <div class="cat-preview-item">
+          <img src="images/orange_tabby.png" alt="Orange Tabby" loading="lazy">
+          <span data-i18n="cat_d_short">橘貓</span>
+        </div>
+        <div class="cat-preview-item">
+          <img src="images/ragdoll.png" alt="Ragdoll" loading="lazy">
+          <span data-i18n="cat_e_short">布偶</span>
+        </div>
+        <div class="cat-preview-item">
+          <img src="images/abyssinian.png" alt="Abyssinian" loading="lazy">
+          <span data-i18n="cat_f_short">阿比</span>
+        </div>
+      </div>
+      <div class="landing-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="landing-time">約 2 分鐘 ・ 10 題</span>
+      </div>
+    </div>
+
+    <button class="btn-start" id="btn-start" aria-label="開始測驗">
+      <span id="start-text">開始測驗</span>
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section class="page quiz" id="page-quiz">
+    <div class="quiz-header">
+      <div class="progress-row">
+        <span class="progress-label" id="progress-label">1 / 10</span>
+      </div>
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="question-card">
+      <div class="question-number" id="question-number">1</div>
+      <p class="question-text" id="question-text"></p>
+      <div class="options" id="options"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-back hidden" id="btn-back" aria-label="上一題">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span id="back-text">上一題</span>
+      </button>
+      <div></div>
+    </div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section class="page result" id="page-result">
+    <div class="result-card">
+      <div class="result-badge" id="result-badge">你的貓咪性格</div>
+      <img class="result-image" id="result-image" src="" alt="">
+      <h2 class="result-name" id="result-name"></h2>
+      <p class="result-subtitle" id="result-subtitle"></p>
+      <div class="result-traits" id="result-traits"></div>
+      <p class="result-desc" id="result-desc"></p>
+    </div>
+
+    <div class="share-section">
+      <p class="share-title" id="share-title">分享結果給朋友</p>
+      <div class="share-buttons">
+        <button class="btn-share" id="btn-copy" aria-label="複製連結">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <span id="copy-text">複製連結</span>
+        </button>
+        <button class="btn-share" id="btn-fb" aria-label="分享到 Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+        <button class="btn-share" id="btn-line" aria-label="分享到 LINE">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINE
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-restart" id="btn-restart" aria-label="重新測驗">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      <span id="restart-text">重新測驗</span>
+    </button>
+  </section>
+
+</div>
+</div>
+
+<footer class="footer">
+  <span id="footer-text">Cat Personality Quiz &copy; 2026</span>
+</footer>
+
+<script>
+/* ==============================================
+   I18N — Bilingual content
+   ============================================== */
+const i18n = {
+  zh: {
+    landing_title: '你是哪種貓咪？',
+    landing_subtitle: '透過 10 道趣味情境題<br>探索隱藏在你內心深處的貓咪性格',
+    landing_time: '約 2 分鐘 ・ 10 題',
+    start_text: '開始測驗',
+    back_text: '上一題',
+    result_badge: '你的貓咪性格',
+    share_title: '分享結果給朋友',
+    copy_text: '複製連結',
+    copied_text: '已複製！',
+    restart_text: '重新測驗',
+    footer_text: '貓咪性格測驗 &copy; 2026',
+    cat_a_short: '英短', cat_b_short: '暹羅', cat_c_short: '俄藍',
+    cat_d_short: '橘貓', cat_e_short: '布偶', cat_f_short: '阿比',
+    questions: [
+      {
+        text: '週末早上醒來，你最想做的第一件事是？',
+        options: [
+          { text: '繼續賴床，享受安靜的早晨', scores: { A: 2, E: 1 } },
+          { text: '打電話約朋友出門吃早午餐', scores: { B: 2, D: 1 } },
+          { text: '泡一杯咖啡，靜靜看一本書', scores: { C: 2, A: 1 } },
+          { text: '出門探索一個沒去過的地方', scores: { F: 2, D: 1 } }
+        ]
+      },
+      {
+        text: '朋友突然帶了一個你不認識的人來聚會，你的第一反應是？',
+        options: [
+          { text: '禮貌微笑，但先保持距離默默觀察', scores: { C: 2, A: 1 } },
+          { text: '主動上前自我介紹，開始聊天', scores: { B: 2, F: 1 } },
+          { text: '跟在熟識朋友身邊，慢慢適應', scores: { E: 2, A: 1 } },
+          { text: '無所謂，反正很快就能跟大家打成一片', scores: { D: 2, B: 1 } }
+        ]
+      },
+      {
+        text: '壓力很大的時候，你通常會怎麼做？',
+        options: [
+          { text: '一個人待著，安靜消化情緒', scores: { A: 2, C: 1 } },
+          { text: '找朋友傾訴，說出來就舒服了', scores: { B: 2, E: 1 } },
+          { text: '吃一頓大餐好好犒賞自己', scores: { D: 2, E: 1 } },
+          { text: '去運動或做激烈的活動發洩', scores: { F: 2, D: 1 } }
+        ]
+      },
+      {
+        text: '如果你是一隻被養在家裡的貓，你最在意什麼？',
+        options: [
+          { text: '有自己的專屬領地和空間', scores: { A: 2, C: 1 } },
+          { text: '主人要常常陪我說話和玩耍', scores: { B: 2, E: 1 } },
+          { text: '食物要好吃而且永遠吃不完', scores: { D: 2, B: 1 } },
+          { text: '能自由進出，探索外面的世界', scores: { F: 2, C: 1 } }
+        ]
+      },
+      {
+        text: '朋友最常用什麼詞形容你？',
+        options: [
+          { text: '「可靠」「沉穩」', scores: { A: 2, C: 1 } },
+          { text: '「有趣」「超會帶動氣氛」', scores: { B: 2, D: 1 } },
+          { text: '「溫柔」「讓人很安心」', scores: { E: 2, C: 1 } },
+          { text: '「大膽」「行動力超強」', scores: { F: 2, B: 1 } }
+        ]
+      },
+      {
+        text: '選一個你最嚮往的居住空間風格？',
+        options: [
+          { text: '簡約北歐風，乾淨清爽', scores: { A: 2, C: 1 } },
+          { text: '色彩繽紛的波希米亞風', scores: { B: 2, F: 1 } },
+          { text: '溫馨舒適的日式暖木風', scores: { E: 2, D: 1 } },
+          { text: '充滿綠植的都市叢林風', scores: { C: 2, F: 1 } }
+        ]
+      },
+      {
+        text: '面對一道你沒吃過的異國神秘料理，你會？',
+        options: [
+          { text: '先查評價和成分，研究一下再決定', scores: { C: 2, A: 1 } },
+          { text: '直接點來吃！人生就是要嘗鮮', scores: { F: 2, D: 1 } },
+          { text: '問店員推薦，順便聊聊料理故事', scores: { B: 2, E: 1 } },
+          { text: '選看起來份量最大、最划算的', scores: { D: 2, B: 1 } }
+        ]
+      },
+      {
+        text: '和別人意見不合時，你的第一反應是？',
+        options: [
+          { text: '先沉默，在心裡整理好想法再回應', scores: { A: 2, C: 1 } },
+          { text: '直接表達自己的看法，有話就說', scores: { B: 2, F: 1 } },
+          { text: '嘗試理解對方立場，找折衷方案', scores: { E: 2, C: 1 } },
+          { text: '算了不想吵，人生何必為小事煩惱', scores: { D: 2, A: 1 } }
+        ]
+      },
+      {
+        text: '對於工作或學習，你的態度最接近哪一個？',
+        options: [
+          { text: '按部就班，穩紮穩打最安心', scores: { A: 2, E: 1 } },
+          { text: '喜歡團隊合作，互相激盪想法', scores: { B: 2, D: 1 } },
+          { text: '追求完美，每個細節都不放過', scores: { C: 2, A: 1 } },
+          { text: '喜歡挑戰新領域，越難越有趣', scores: { F: 2, B: 1 } }
+        ]
+      },
+      {
+        text: '如果只能選一樣，你最重視的生活價值是？',
+        options: [
+          { text: '內心的平靜與獨處的自在時光', scores: { A: 2, C: 1 } },
+          { text: '豐富的人際關係與熱鬧的社交', scores: { B: 2, D: 1 } },
+          { text: '被重要的人理解、關心與陪伴', scores: { E: 2, B: 1 } },
+          { text: '自由探索世界的無限可能', scores: { F: 2, D: 1 } }
+        ]
+      }
+    ],
+    results: {
+      A: {
+        name: '英國短毛貓',
+        subtitle: 'British Shorthair',
+        traits: ['穩重', '獨立', '忠誠', '內斂'],
+        desc: '你就像一隻優雅的英國短毛貓 — 沉穩內斂，散發著從容不迫的氣場。你享受獨處的時光，在安靜中找到力量。雖然外表看似冷漠，但對真正在意的人，你有著超乎想像的忠誠與溫暖。你不需要成為聚光燈下的焦點，因為你的穩定與可靠，就是你最迷人的特質。'
+      },
+      B: {
+        name: '暹羅貓',
+        subtitle: 'Siamese',
+        traits: ['外向', '健談', '熱情', '表達力強'],
+        desc: '你就像一隻活潑的暹羅貓 — 天生的社交明星！你熱情洋溢，喜歡表達自己的想法，走到哪裡都能成為話題中心。你有一種天然的感染力，讓身邊的人不自覺地被你吸引。對你來說，生活就是要盡情分享喜怒哀樂，每一天都要活得精彩熱鬧。'
+      },
+      C: {
+        name: '俄羅斯藍貓',
+        subtitle: 'Russian Blue',
+        traits: ['優雅', '敏銳', '神秘', '品味獨到'],
+        desc: '你就像一隻神秘的俄羅斯藍貓 — 氣質出眾，眼光獨到。你擁有敏銳的觀察力，能看穿事物的本質。雖然你需要時間才能敞開心扉，但一旦信任一個人，就會展現出溫柔而深沉的一面。你追求品質與細節，不隨波逐流，有著專屬於自己的獨特品味。'
+      },
+      D: {
+        name: '橘貓',
+        subtitle: 'Orange Tabby',
+        traits: ['樂天', '隨和', '療癒', '享受生活'],
+        desc: '你就像一隻快樂的橘貓 — 天生的開心果！你隨遇而安、不拘小節，用最樂觀的態度面對生活。美食是你最好的夥伴，一頓好吃的就能讓心情滿格。你的存在本身就是一種療癒，讓身邊的人忍不住嘴角上揚。人生嘛，開心最重要！'
+      },
+      E: {
+        name: '布偶貓',
+        subtitle: 'Ragdoll',
+        traits: ['溫柔', '包容', '療癒', '善解人意'],
+        desc: '你就像一隻溫暖的布偶貓 — 天生的療癒系存在。你個性溫和包容，擁有讓人放鬆的魔力。在朋友圈中，你是那個大家都想靠近、傾訴心事的對象。你重視情感連結，真心希望身邊的每個人都能幸福快樂。你的溫柔，是這個世界最珍貴的禮物。'
+      },
+      F: {
+        name: '阿比西尼亞貓',
+        subtitle: 'Abyssinian',
+        traits: ['冒險', '好奇', '活力', '勇於嘗試'],
+        desc: '你就像一隻精力充沛的阿比西尼亞貓 — 永不停歇的探險家！你對世界充滿好奇心，總是迫不及待想要嘗試新事物。安逸對你來說是一種折磨，挑戰才是你的舞台。你的行動力和勇氣感染著身邊每個人，提醒大家生命就是要勇敢追夢！'
+      }
+    }
+  },
+  en: {
+    landing_title: 'What Cat Are You?',
+    landing_subtitle: 'Answer 10 fun scenario questions<br>and discover the cat personality hidden within you',
+    landing_time: 'About 2 min \u00B7 10 Questions',
+    start_text: 'Start Quiz',
+    back_text: 'Back',
+    result_badge: 'Your Cat Personality',
+    share_title: 'Share with friends',
+    copy_text: 'Copy Link',
+    copied_text: 'Copied!',
+    restart_text: 'Retake Quiz',
+    footer_text: 'Cat Personality Quiz &copy; 2026',
+    cat_a_short: 'British', cat_b_short: 'Siamese', cat_c_short: 'Russ. Blue',
+    cat_d_short: 'Orange', cat_e_short: 'Ragdoll', cat_f_short: 'Abyssin.',
+    questions: [
+      {
+        text: 'You wake up on a Saturday morning. What\'s the first thing you want to do?',
+        options: [
+          { text: 'Stay in bed and enjoy the quiet morning', scores: { A: 2, E: 1 } },
+          { text: 'Call friends and go out for brunch', scores: { B: 2, D: 1 } },
+          { text: 'Make coffee and read a good book', scores: { C: 2, A: 1 } },
+          { text: 'Head out to explore somewhere new', scores: { F: 2, D: 1 } }
+        ]
+      },
+      {
+        text: 'A friend brings someone you don\'t know to a hangout. How do you react?',
+        options: [
+          { text: 'Smile politely but observe from a distance first', scores: { C: 2, A: 1 } },
+          { text: 'Walk up and introduce yourself right away', scores: { B: 2, F: 1 } },
+          { text: 'Stick close to friends you already know', scores: { E: 2, A: 1 } },
+          { text: 'No big deal — you\'ll blend in naturally', scores: { D: 2, B: 1 } }
+        ]
+      },
+      {
+        text: 'When you\'re very stressed, what do you usually do?',
+        options: [
+          { text: 'Be alone and process emotions quietly', scores: { A: 2, C: 1 } },
+          { text: 'Talk to friends — saying it out helps', scores: { B: 2, E: 1 } },
+          { text: 'Treat yourself to a big delicious meal', scores: { D: 2, E: 1 } },
+          { text: 'Exercise or do something intense to vent', scores: { F: 2, D: 1 } }
+        ]
+      },
+      {
+        text: 'If you were a house cat, what would matter most to you?',
+        options: [
+          { text: 'Having your own personal territory and space', scores: { A: 2, C: 1 } },
+          { text: 'Your owner playing and chatting with you often', scores: { B: 2, E: 1 } },
+          { text: 'Delicious food, and lots of it — always', scores: { D: 2, B: 1 } },
+          { text: 'Freedom to go outside and explore the world', scores: { F: 2, C: 1 } }
+        ]
+      },
+      {
+        text: 'How do friends usually describe you?',
+        options: [
+          { text: '"Reliable" and "Steady"', scores: { A: 2, C: 1 } },
+          { text: '"Fun" and "Great at livening things up"', scores: { B: 2, D: 1 } },
+          { text: '"Gentle" and "Comforting to be around"', scores: { E: 2, C: 1 } },
+          { text: '"Bold" and "Always takes action"', scores: { F: 2, B: 1 } }
+        ]
+      },
+      {
+        text: 'Pick your dream living space style:',
+        options: [
+          { text: 'Minimalist Scandinavian — clean and fresh', scores: { A: 2, C: 1 } },
+          { text: 'Colorful Bohemian — vibrant and eclectic', scores: { B: 2, F: 1 } },
+          { text: 'Cozy Japanese — warm wood and comfort', scores: { E: 2, D: 1 } },
+          { text: 'Urban Jungle — full of plants and green', scores: { C: 2, F: 1 } }
+        ]
+      },
+      {
+        text: 'You see a mysterious exotic dish you\'ve never tried. What do you do?',
+        options: [
+          { text: 'Research reviews and ingredients first', scores: { C: 2, A: 1 } },
+          { text: 'Order it immediately — life is for trying!', scores: { F: 2, D: 1 } },
+          { text: 'Ask the server for recommendations and stories', scores: { B: 2, E: 1 } },
+          { text: 'Pick the one with the biggest portion and best value', scores: { D: 2, B: 1 } }
+        ]
+      },
+      {
+        text: 'When you disagree with someone, your first reaction is:',
+        options: [
+          { text: 'Stay quiet, organize your thoughts, then respond', scores: { A: 2, C: 1 } },
+          { text: 'Speak your mind directly — honesty matters', scores: { B: 2, F: 1 } },
+          { text: 'Try to understand them and find a middle ground', scores: { E: 2, C: 1 } },
+          { text: 'Let it go — life\'s too short for arguments', scores: { D: 2, A: 1 } }
+        ]
+      },
+      {
+        text: 'Your attitude toward work or study is closest to:',
+        options: [
+          { text: 'Steady and methodical — one step at a time', scores: { A: 2, E: 1 } },
+          { text: 'Love teamwork — brainstorming together is best', scores: { B: 2, D: 1 } },
+          { text: 'Pursue perfection — every detail counts', scores: { C: 2, A: 1 } },
+          { text: 'Love new challenges — the harder, the better', scores: { F: 2, B: 1 } }
+        ]
+      },
+      {
+        text: 'If you could only choose one, what do you value most in life?',
+        options: [
+          { text: 'Inner peace and time to be with yourself', scores: { A: 2, C: 1 } },
+          { text: 'Rich relationships and a lively social life', scores: { B: 2, D: 1 } },
+          { text: 'Being understood and cared for by loved ones', scores: { E: 2, B: 1 } },
+          { text: 'Freedom to explore endless possibilities', scores: { F: 2, D: 1 } }
+        ]
+      }
+    ],
+    results: {
+      A: {
+        name: 'British Shorthair',
+        subtitle: '英國短毛貓',
+        traits: ['Steady', 'Independent', 'Loyal', 'Reserved'],
+        desc: 'You\'re like an elegant British Shorthair — calm, composed, and radiating quiet confidence. You treasure your alone time and find strength in silence. While you may seem aloof on the surface, you\'re deeply loyal to those in your inner circle. You don\'t need the spotlight; your reliability and steadfast nature are your most captivating traits.'
+      },
+      B: {
+        name: 'Siamese',
+        subtitle: '暹羅貓',
+        traits: ['Outgoing', 'Chatty', 'Passionate', 'Expressive'],
+        desc: 'You\'re like a lively Siamese — a natural-born social star! You\'re full of energy, love expressing yourself, and can light up any room you walk into. You have an infectious charm that draws people to you effortlessly. For you, life is about sharing every joy and sorrow — every day should be lived passionately and to the fullest!'
+      },
+      C: {
+        name: 'Russian Blue',
+        subtitle: '俄羅斯藍貓',
+        traits: ['Elegant', 'Perceptive', 'Mysterious', 'Refined taste'],
+        desc: 'You\'re like a mysterious Russian Blue — distinguished, sharp-eyed, and uniquely refined. You possess keen observation skills that see through to the heart of things. It takes time for you to open up, but once you trust someone, you reveal a tender and profound side. You pursue quality and detail, marching to your own beat with impeccable taste.'
+      },
+      D: {
+        name: 'Orange Tabby',
+        subtitle: '橘貓',
+        traits: ['Optimistic', 'Easygoing', 'Healing', 'Life-loving'],
+        desc: 'You\'re like a happy Orange Tabby — everyone\'s favorite ray of sunshine! You go with the flow and don\'t sweat the small stuff, facing life with the most optimistic attitude. Good food is your best companion — a great meal can always recharge your mood to 100%. Your very presence is healing, making everyone around you smile involuntarily. Life is about being happy!'
+      },
+      E: {
+        name: 'Ragdoll',
+        subtitle: '布偶貓',
+        traits: ['Gentle', 'Compassionate', 'Healing', 'Empathetic'],
+        desc: 'You\'re like a warm Ragdoll — a natural healing presence. Your gentle, accepting nature has a magical ability to put people at ease. Among friends, you\'re the one everyone wants to be close to and confide in. You cherish emotional bonds and genuinely wish for everyone around you to be happy. Your tenderness is the world\'s most precious gift.'
+      },
+      F: {
+        name: 'Abyssinian',
+        subtitle: '阿比西尼亞貓',
+        traits: ['Adventurous', 'Curious', 'Energetic', 'Daring'],
+        desc: 'You\'re like an energetic Abyssinian — a non-stop explorer! You\'re endlessly curious about the world and always eager to try something new. Comfort zones feel like prisons to you — challenges are your stage. Your courage and drive inspire everyone around you, reminding them that life is about bravely chasing dreams!'
+      }
+    }
+  }
+};
+
+/* ==============================================
+   CAT IMAGE MAP
+   ============================================== */
+const catImages = {
+  A: 'images/british_shorthair.png',
+  B: 'images/siamese.png',
+  C: 'images/russian_blue.png',
+  D: 'images/orange_tabby.png',
+  E: 'images/ragdoll.png',
+  F: 'images/abyssinian.png'
+};
+
+/* ==============================================
+   STATE
+   ============================================== */
+let currentLang = 'zh';
+let currentQuestion = 0;
+let answers = [];
+let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
+
+/* ==============================================
+   GTM HELPER
+   ============================================== */
+window.dataLayer = window.dataLayer || [];
+function trackEvent(eventName, params) {
+  window.dataLayer.push({
+    event: eventName,
+    event_category: 'quiz',
+    tool_name: 'cat_personality_quiz',
+    ...params
+  });
+}
+// backward compat
+window.sendGAS = function(label) {
+  trackEvent('quiz_interaction', { event_label: label });
+};
+
+/* ==============================================
+   DOM REFS
+   ============================================== */
+const $ = id => document.getElementById(id);
+const pages = {
+  landing: $('page-landing'),
+  quiz: $('page-quiz'),
+  result: $('page-result')
+};
+
+/* ==============================================
+   PARTICLES
+   ============================================== */
+(function initParticles() {
+  const container = $('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (6 + Math.random() * 10) + 's';
+    p.style.animationDelay = Math.random() * 8 + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+    p.style.opacity = 0.15 + Math.random() * 0.3;
+    container.appendChild(p);
+  }
+})();
+
+/* ==============================================
+   LANGUAGE
+   ============================================== */
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  updateTexts();
+  // re-render current question if on quiz page
+  if (pages.quiz.classList.contains('active')) {
+    renderQuestion(currentQuestion);
+  }
+  // re-render result if on result page
+  if (pages.result.classList.contains('active')) {
+    rerenderResult();
+  }
+}
+
+function updateTexts() {
+  const t = i18n[currentLang];
+  $('landing-title').innerHTML = t.landing_title;
+  $('landing-subtitle').innerHTML = t.landing_subtitle;
+  $('landing-time').textContent = t.landing_time;
+  $('start-text').textContent = t.start_text;
+  $('back-text').textContent = t.back_text;
+  $('share-title').textContent = t.share_title;
+  $('copy-text').textContent = t.copy_text;
+  $('restart-text').textContent = t.restart_text;
+  $('footer-text').innerHTML = t.footer_text;
+  // short names
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+/* ==============================================
+   PAGE CONTROL
+   ============================================== */
+function showPage(name) {
+  Object.values(pages).forEach(p => p.classList.remove('active'));
+  pages[name].classList.add('active');
+  // re-trigger animation
+  pages[name].style.animation = 'none';
+  void pages[name].offsetHeight;
+  pages[name].style.animation = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ==============================================
+   QUIZ LOGIC
+   ============================================== */
+function startQuiz() {
+  currentQuestion = 0;
+  answers = [];
+  scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
+  showPage('quiz');
+  renderQuestion(0);
+  trackEvent('quiz_start');
+}
+
+function renderQuestion(idx) {
+  const t = i18n[currentLang];
+  const q = t.questions[idx];
+  const total = t.questions.length;
+
+  $('progress-label').textContent = `${idx + 1} / ${total}`;
+  $('progress-fill').style.width = ((idx + 1) / total * 100) + '%';
+  $('question-number').textContent = idx + 1;
+  $('question-text').textContent = q.text;
+
+  // Back button
+  $('btn-back').classList.toggle('hidden', idx === 0);
+
+  // Card animation
+  const card = $('question-card');
+  card.style.animation = 'none';
+  void card.offsetHeight;
+  card.style.animation = 'cardIn 0.4s ease-out';
+
+  // Options
+  const optContainer = $('options');
+  optContainer.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    if (answers[idx] === i) btn.classList.add('selected');
+    btn.innerHTML = `
+      <span class="option-letter">${letters[i]}</span>
+      <span class="option-text">${opt.text}</span>
+    `;
+    btn.addEventListener('click', () => selectOption(idx, i, opt.scores));
+    optContainer.appendChild(btn);
+  });
+
+  // aria
+  document.querySelector('.progress-bar').setAttribute('aria-valuenow', Math.round((idx + 1) / total * 100));
+}
+
+function selectOption(qIdx, optIdx, optScores) {
+  // If they changed answer, undo previous scores
+  if (answers[qIdx] !== undefined) {
+    const prevScores = i18n[currentLang].questions[qIdx].options[answers[qIdx]].scores;
+    for (const [cat, pts] of Object.entries(prevScores)) {
+      scores[cat] -= pts;
+    }
+  }
+
+  // Record new answer
+  answers[qIdx] = optIdx;
+
+  // Add new scores
+  for (const [cat, pts] of Object.entries(optScores)) {
+    scores[cat] += pts;
+  }
+
+  // visual feedback
+  document.querySelectorAll('.option-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === optIdx);
+  });
+
+  trackEvent('quiz_answer', {
+    question_number: qIdx + 1,
+    selected_option: optIdx
+  });
+
+  // next question or result
+  const total = i18n[currentLang].questions.length;
+  setTimeout(() => {
+    if (qIdx + 1 < total) {
+      currentQuestion = qIdx + 1;
+      renderQuestion(currentQuestion);
+    } else {
+      showResult();
+    }
+  }, 400);
+}
+
+function goBack() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion(currentQuestion);
+  }
+}
+
+function showResult() {
+  // Find top cat
+  let maxScore = 0;
+  let resultCat = 'A';
+  for (const [cat, pts] of Object.entries(scores)) {
+    if (pts > maxScore) {
+      maxScore = pts;
+      resultCat = cat;
+    }
+  }
+
+  const t = i18n[currentLang];
+  const r = t.results[resultCat];
+
+  $('result-badge').textContent = t.result_badge;
+  $('result-image').src = catImages[resultCat];
+  $('result-image').alt = r.name;
+  $('result-name').textContent = r.name;
+  $('result-subtitle').textContent = r.subtitle;
+  $('result-desc').textContent = r.desc;
+
+  // Traits
+  const traitsEl = $('result-traits');
+  traitsEl.innerHTML = '';
+  r.traits.forEach(trait => {
+    const tag = document.createElement('span');
+    tag.className = 'trait-tag';
+    tag.textContent = trait;
+    traitsEl.appendChild(tag);
+  });
+
+  lastResultCat = resultCat;
+  showPage('result');
+  trackEvent('quiz_complete', { result_type: resultCat + '_' + r.name });
+
+  // Trigger ad popup after 1.5s delay
+  adShown = false;
+  setTimeout(() => showAd(), 1500);
+}
+
+let lastResultCat = 'A';
+
+function rerenderResult() {
+  const t = i18n[currentLang];
+  const r = t.results[lastResultCat];
+  $('result-badge').textContent = t.result_badge;
+  $('result-name').textContent = r.name;
+  $('result-subtitle').textContent = r.subtitle;
+  $('result-desc').textContent = r.desc;
+  const traitsEl = $('result-traits');
+  traitsEl.innerHTML = '';
+  r.traits.forEach(trait => {
+    const tag = document.createElement('span');
+    tag.className = 'trait-tag';
+    tag.textContent = trait;
+    traitsEl.appendChild(tag);
+  });
+}
+
+function restartQuiz() {
+  const prevResult = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+  trackEvent('quiz_restart', { previous_result: prevResult });
+  adShown = false;
+  startQuiz();
+}
+
+/* ==============================================
+   SHARE
+   ============================================== */
+function copyLink() {
+  const t = i18n[currentLang];
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btn = $('btn-copy');
+    btn.classList.add('copied');
+    $('copy-text').textContent = t.copied_text;
+    trackEvent('quiz_share', { share_platform: 'copy_link', result_type: $('result-name').textContent });
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      $('copy-text').textContent = t.copy_text;
+    }, 2000);
+  });
+}
+
+function shareFB() {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  trackEvent('quiz_share', { share_platform: 'facebook', result_type: $('result-name').textContent });
+}
+
+function shareLINE() {
+  const t = i18n[currentLang];
+  const resultName = $('result-name').textContent;
+  const msg = encodeURIComponent(`${t.landing_title} - ${t.result_badge}: ${resultName}\n${window.location.href}`);
+  window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${msg}`, '_blank');
+  trackEvent('quiz_share', { share_platform: 'line', result_type: resultName });
+}
+
+/* ==============================================
+   EVENT BINDINGS
+   ============================================== */
+$('btn-start').addEventListener('click', startQuiz);
+$('btn-back').addEventListener('click', goBack);
+$('btn-restart').addEventListener('click', restartQuiz);
+$('btn-copy').addEventListener('click', copyLink);
+$('btn-fb').addEventListener('click', shareFB);
+$('btn-line').addEventListener('click', shareLINE);
+
+/* ==============================================
+   AD POPUP SYSTEM + UTM TRACKING
+   ============================================== */
+
+// --- UTM Configuration ---
+const UTM_SOURCE = 'whatcatareyou';
+const UTM_MEDIUM = 'display';
+const UTM_CAMPAIGN = 'mega_traffic_2026';
+const ordinals = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'];
+
+function buildUtmUrl(baseUrl, bannerIndex) {
+  const sep = baseUrl.includes('?') ? '&' : '?';
+  const content = (ordinals[bannerIndex] || (bannerIndex + 1) + 'th') + '_banner';
+  return `${baseUrl}${sep}utm_source=${UTM_SOURCE}&utm_medium=${UTM_MEDIUM}&utm_campaign=${UTM_CAMPAIGN}&utm_content=${content}`;
+}
+
+// --- Ad List ---
+const adList = [
+  { id: 'cmj2',    img: 'images/pic_cmj2.png',    url: 'https://cmj2.com.tw/' },
+  { id: 'iStar31', img: 'images/pic_iStar31.png',  url: 'https://www.gametower.com.tw/Games/FreePlay/Mj/star31/' },
+  { id: 'pg',      img: 'images/pic_pg.png',        url: 'https://www.gametower.com.tw/Games/PG/' }
+];
+
+let adShown = false;
+let currentAd = null;
+let currentAdIndex = 0;
+
+function showAd() {
+  if (adShown) return;
+  adShown = true;
+
+  // Random pick
+  currentAdIndex = Math.floor(Math.random() * adList.length);
+  currentAd = adList[currentAdIndex];
+  const utmUrl = buildUtmUrl(currentAd.url, currentAdIndex);
+
+  $('ad-image').src = currentAd.img;
+  $('ad-image').alt = currentAd.id + ' advertisement';
+  $('ad-link').href = utmUrl;
+  $('ad-overlay').classList.add('show');
+
+  // Focus close button for accessibility
+  setTimeout(() => $('ad-close').focus(), 400);
+
+  trackEvent('ad_impression', {
+    ad_id: currentAd.id,
+    utm_source: UTM_SOURCE,
+    utm_content: ordinals[currentAdIndex] + '_banner'
+  });
+}
+
+function closeAd(method) {
+  $('ad-overlay').classList.remove('show');
+  if (currentAd) {
+    trackEvent('ad_close', { ad_id: currentAd.id, close_method: method });
+  }
+  // Return focus to restart button
+  setTimeout(() => $('btn-restart').focus(), 350);
+}
+
+// Ad click tracking
+$('ad-link').addEventListener('click', function() {
+  if (currentAd) {
+    trackEvent('ad_click', {
+      ad_id: currentAd.id,
+      ad_url: $('ad-link').href,
+      utm_source: UTM_SOURCE,
+      utm_content: ordinals[currentAdIndex] + '_banner'
+    });
+  }
+});
+
+// Close via X button
+$('ad-close').addEventListener('click', function(e) {
+  e.stopPropagation();
+  closeAd('button');
+});
+
+// Close via overlay click
+$('ad-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeAd('overlay');
+});
+
+// Close via Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && $('ad-overlay').classList.contains('show')) {
+    closeAd('escape');
+  }
+});
+
+// Initialize
+updateTexts();
+</script>
+</body>
+</html>
